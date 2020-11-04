@@ -5,3 +5,22 @@ $primary-background: radial-gradient(circle, rgba(63,94,251,1) 0%, rgba(252,70,1
 body {
   background: $primary-background;
 }
+
+.login-info {
+  background-color: #2ae698;
+  height: 12em;
+  width: 15em;
+  display: flex;
+  flex-direction: column;
+  justify-content: right;
+  margin: 12em 0
+}
+
+.user-inputs {
+  margin: .5em;
+  width: 75%;
+}
+
+.hidden {
+  display: none;
+}
