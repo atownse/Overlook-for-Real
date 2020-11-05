@@ -1,5 +1,5 @@
 class User {
-  constructor(id) {
+  constructor(id, date, bookings) {
     this.id = id || 'manager';
     if (id) {
       this.username = `customer${this.id}`
@@ -7,7 +7,8 @@ class User {
       this.username = 'manager'
     }
     this.password = 'overlook2020';
-    this.bookings = [];
+    this.date = date;
+    this.bookings = bookings || [];
   }
 
   bookRoom(booking) {
