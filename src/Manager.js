@@ -42,12 +42,20 @@ class Manager extends User {
     return `$${roomTotals}`;
   }
 
-  calculatePercentOccupied(date) {
-
+  // I want to look through the booked rooms for that date and determine out of all the rooms what percentage has been occupied
+  calculatePercentOccupied(date, bookingData, roomData) {
+    let roomsTaken = bookingData.reduce((filledRooms, bookedRoom) => {
+      if (bookedRoom.date === date) {
+        filledRooms.push(bookedRoom.roomNumber)
+      }
+      return filledRooms
+    }, []);
+    let percentOccupied = (roomsTaken.length / roomData.length) * 100;
+    return `${percentOccupied.toFixed(1)}%`;
   }
 
   provideCustomerInfo(customer) {
-
+    
   }
 
 }

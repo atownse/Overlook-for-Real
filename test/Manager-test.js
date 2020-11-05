@@ -38,5 +38,11 @@ describe.only('Manager', () => {
     let totalRevenue = manager.provideTotalRevenue(date, bookings, rooms);
 
     expect(totalRevenue).to.equal('$1265.22');
+  });
+
+  it('should be able to determine the percentage of rooms occupied any given date', () => {
+    let percentTaken = manager.calculatePercentOccupied(date, bookings, rooms);
+
+    expect(percentTaken).to.equal('60.0%')
   })
 });
