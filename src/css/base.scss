@@ -21,6 +21,30 @@ body {
   width: 75%;
 }
 
+.manager-dashboard {
+  display: flex;
+  justify-content: space-around;
+}
+
+.manager-view {
+  background-color: white;
+    height: 10em;
+    width: 10em;
+    text-align: center;
+}
+
+.customer-dashboard {
+  display: flex;
+  justify-content: space-around;
+}
+
+.customer-view {
+  background-color: white;
+  height: 10em;
+  width: 10em;
+  text-align: center;
+}
+
 .hidden {
   display: none;
 }

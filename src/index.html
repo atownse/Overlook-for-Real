@@ -6,20 +6,29 @@
   <body>
     <section>
       <h1>Howdy Partner</h1>
-      <section class="login-info">
+      <form class="login-info">
         <label class="user-inputs">Username:</label>
         <input class="user-inputs username" type="text" placeholder="please enter username">
         <label class="user-inputs">Password:</label>
         <input class="user-inputs password" type="text" placeholder="please enter password">
         <button class="user-inputs login-button">Log In</button>
-      </section>
+      </form>
       <img>
     </section>
     <section class="manager-display hidden">
-      Manager Display
+      <section class="manager-dashboard">
+        <section class="manager-view rooms">Available Rooms</section>
+        <section class="manager-view revenue">Total Revenue</section>
+        <section class="manager-view percent-occupied">Percent Occupied</section>
+      </section>
     </section>
     <section class="customer-display hidden">
-      Customer Display
+      <section>
+        <section class="customer-dashboard">
+          <section class="customer-view rooms">Rooms Booked</section>
+          <section class="customer-view cost">Total Spent</section>
+        </section>
+      </section>
     </section>
     <img src="./images/turing-logo.png" alt="turing logo" height="100px" width="100px">
 
