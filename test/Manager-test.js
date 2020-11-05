@@ -44,5 +44,11 @@ describe.only('Manager', () => {
     let percentTaken = manager.calculatePercentOccupied(date, bookings, rooms);
 
     expect(percentTaken).to.equal('60.0%')
-  })
+  });
+
+  it('should provide details about the current user\'s bookings', () => {
+    let currentUserInfo = manager.provideCustomerInfo(customers[0])
+
+    expect(currentUserInfo).to.deep.equal([sampleBookingData[0], sampleBookingData[3], sampleBookingData[4]]);
+  });
 });

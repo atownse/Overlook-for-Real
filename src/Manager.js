@@ -5,6 +5,7 @@ class Manager extends User {
     super(id, date, bookings);
     this.customers = customers;
     this.rooms = rooms;
+    this.currentCustomer = {};
   }
 
   // want to match current date to booking date, if dates match, provide list of rooms that are not taken
@@ -54,8 +55,13 @@ class Manager extends User {
     return `${percentOccupied.toFixed(1)}%`;
   }
 
+  setCurrentCustomer(customer) {
+    this.currentCustomer = customer;
+  }
+
   provideCustomerInfo(customer) {
-    
+    this.setCurrentCustomer(customer);
+    return this.bookings.filter(booking => booking.userID === this.currentCustomer.id);
   }
 
 }
