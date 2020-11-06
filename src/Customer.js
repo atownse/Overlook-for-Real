@@ -4,7 +4,7 @@ class Customer extends User {
   constructor(id, name, date, bookings) {
     super(id, date, bookings);
     this.name = name;
-    // this.bookings = [];
+    this.bookings = this.provideBookedRooms(bookings);
   }
 
   provideFirstName() {
@@ -16,8 +16,10 @@ class Customer extends User {
   //   this.bookings.push(booking);
   // }
 
-  provideBookedRooms() {
-
+  provideBookedRooms(bookingData) {
+    return bookingData.filter(booking => {
+      return booking.userID === this.id
+    })
   }
 
   provideTotalCosts() {
