@@ -4,7 +4,7 @@ import sampleRoomData from './sample-room-data'
 import sampleUserData from './sample-user-data'
 import Manager from '../src/Manager';
 
-describe.only('Manager', () => {
+describe('Manager', () => {
   let customers, rooms, bookings, date, manager;
 
   beforeEach(() => {

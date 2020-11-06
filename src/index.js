@@ -11,6 +11,9 @@ console.log('This is the JavaScript entry file - your code begins here.');
 
 import Customer from './Customer';
 import Manager from './Manager';
+import Booking from './Booking';
+import apiCalls from './apiCalls';
+import Room from './Room';
 
 
 // Query Selectors--------------------
@@ -26,7 +29,32 @@ loginButton.addEventListener('click', userLogin)
 
 //Global variables
 
-let currentCustomer, manager;
+let currentCustomer, manager, customers, date, bookings, rooms;
+date = "2020/01/21"; // reminder to change
+
+// functions
+
+Promise.all([apiCalls.getCustomerData(), apiCalls.getRoomData(), apiCalls.getBookingData()])
+  .then((data) => {
+    const condensedData = data.reduce((dataList, dataItem) => {
+      return dataList = {...dataList, ...dataItem};
+    }, {})
+    instantiateData(condensedData)
+  })
+
+function instantiateData(data) {
+  bookings = data.bookings.map(booking => {
+    return new Booking(booking);
+  });
+  rooms = data.rooms.map(room => {
+    return new Room(room);
+  })
+  customers = data.users.map(user => {
+    return new Customer(user.id, user.name, date, bookings)
+  });
+  console.log(customers[29]);
+  console.log(rooms)
+}
 
 function removeLogin() {
   document.querySelector('.login-info').classList.add('hidden');
