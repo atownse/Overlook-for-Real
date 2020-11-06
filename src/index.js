@@ -61,7 +61,7 @@ function removeLogin() {
 }
 
 function displayManagerAccount() {
-  // manager = new Manager(currentDate, rooms, bookings);
+  // manager = new Manager(date, rooms, bookings);
   removeLogin();
   managerDisplay.classList.remove('hidden');
 }
