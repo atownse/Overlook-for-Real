@@ -1,7 +1,7 @@
 import User from './User'
 
 class Customer extends User {
-  constructor(id, name, date, bookings) {
+  constructor(id, date, bookings, name) {
     super(id, date, bookings);
     this.name = name;
     this.bookings = this.provideBookedRooms(bookings);
@@ -12,18 +12,21 @@ class Customer extends User {
     return firstName[0]
   }
 
-  // bookRoom(booking) {
-  //   this.bookings.push(booking);
-  // }
-
   provideBookedRooms(bookingData) {
     return bookingData.filter(booking => {
       return booking.userID === this.id
     })
   }
 
-  provideTotalCosts() {
-
+  provideTotalCosts(id, bookingData, roomData) {
+    return bookingData.reduce((totalSpent, booking) => {
+      roomData.forEach(room => {
+        if (id === booking.userID && room.number === booking.roomNumber) {
+          totalSpent += room.costPerNight;
+        }
+      });
+      return totalSpent;
+    }, 0)
   }
 }
 
