@@ -39,7 +39,7 @@ class Manager extends User {
       }
       return total;
     }, 0)
-    return `$${roomTotals}`;
+    return `$${roomTotals.toFixed(2)}`;
   }
 
   // I want to look through the booked rooms for that date and determine out of all the rooms what percentage has been occupied
