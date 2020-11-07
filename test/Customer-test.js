@@ -4,7 +4,7 @@ import sampleRoomData from './sample-room-data'
 import sampleUserData from './sample-user-data'
 import Customer from '../src/Customer';
 
-describe.only('Customer', () => {
+describe('Customer', () => {
   let customers, rooms, bookings, date, customer;
 
   beforeEach(() => {
@@ -36,11 +36,10 @@ describe.only('Customer', () => {
 
   it('should provide the booked rooms for that customer', () => {
     let customerBookings = customer.provideBookedRooms(bookings);
-    console.log(customerBookings)
-    expect(customerBookings).to.deep.equal([bookings[0], bookings[3], bookings[4]]);
+    expect(customerBookings).to.deep.equal([1, 5, 3]);
   });
 
-  it.only('should be able to provide the total amount that user has spent at this hotel', () => {
+  it('should be able to provide the total amount that user has spent at this hotel', () => {
     let totalSpent = customer.provideTotalCosts(customer.id, bookings, rooms);
     expect(totalSpent).to.equal(1189.71)
   });

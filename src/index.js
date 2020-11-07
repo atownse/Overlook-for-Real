@@ -18,11 +18,17 @@ import Room from './Room';
 
 // Query Selectors--------------------
 
+const userNameDisplay = document.querySelector('.user-name');
 const usernameInput = document.querySelector('.username');
 const passwordInput = document.querySelector('.password');
 const loginButton = document.querySelector('.login-button');
 const managerDisplay = document.querySelector('.manager-display');
 const customerDisplay = document.querySelector('.customer-display');
+const managerRooms = document.querySelector('.manager-rooms');
+const managerRevenue = document.querySelector('.manager-revenue');
+const occupiedPercentage = document.querySelector('.percent-occupied');
+const customerRooms = document.querySelector('.customer-rooms');
+const customerCost = document.querySelector('.customer-cost');
 
 // Event Listeners
 loginButton.addEventListener('click', userLogin)
@@ -40,7 +46,7 @@ Promise.all([apiCalls.getCustomerData(), apiCalls.getRoomData(), apiCalls.getBoo
       return dataList = {...dataList, ...dataItem};
     }, {})
     instantiateData(condensedData)
-  })
+  });
 
 function instantiateData(data) {
   bookings = data.bookings.map(booking => {
@@ -50,10 +56,8 @@ function instantiateData(data) {
     return new Room(room);
   })
   customers = data.users.map(user => {
-    return new Customer(user.id, user.name, date, bookings)
+    return new Customer(user.id, date, bookings, user.name)
   });
-  console.log(customers[29]);
-  console.log(rooms)
 }
 
 function removeLogin() {
@@ -61,13 +65,42 @@ function removeLogin() {
 }
 
 function displayManagerAccount() {
-  // manager = new Manager(date, rooms, bookings);
+  manager = new Manager(customers, rooms, 'manager', date, bookings);
+  managerRooms.innerText = manager.provideAvailableRooms(date, bookings, rooms);
+  managerRevenue.innerText = manager.provideTotalRevenue(date, bookings, rooms);
+  occupiedPercentage.innerText = manager.calculatePercentOccupied(date, bookings, rooms);
   removeLogin();
   managerDisplay.classList.remove('hidden');
 }
 
+function displayBookedRooms() {
+  let customersRooms = currentCustomer.provideBookedRooms(bookings);
+  console.log(rooms);
+  console.log(customersRooms)
+  let bookedRooms = rooms.filter(room => {
+    return customersRooms.find(customerRoom => customerRoom === room.number)
+  })
+  console.log(bookedRooms)
+  let usersRooms = bookedRooms.forEach(room => {
+    customerRooms.innerHTML += `
+      <div> 
+        <p>${room.number}</p>
+        <p>${room.roomType}: ${room.numBeds} ${room.bedSize}</p>
+        <p>${room.costPerNight}</p>
+      </div>
+    `
+  })
+  console.log(usersRooms);
+}
+
 function displayCustomerAccount() {
   removeLogin();
+  currentCustomer = customers.find(customer => `customer${customer.id}` === usernameInput.value);
+  let userCosts = currentCustomer.provideTotalCosts(currentCustomer.id, bookings, rooms);
+  userNameDisplay.innerText = currentCustomer.provideFirstName();
+  // customerRooms.innerText = currentCustomer.provideBookedRooms(bookings);
+  displayBookedRooms();
+  customerCost.innerText = userCosts.toFixed(2);
   customerDisplay.classList.remove('hidden');
 }
 
