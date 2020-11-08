@@ -1,8 +1,8 @@
 import User from './User'
 
 class Customer extends User {
-  constructor(id, date, bookings, name) {
-    super(id, date, bookings);
+  constructor(id, date, bookings, name, customers) {
+    super(id, date, customers, bookings);
     this.name = name;
     this.bookings = this.provideBookedRooms(bookings);
   }

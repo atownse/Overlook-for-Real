@@ -29,6 +29,8 @@ const managerRevenue = document.querySelector('.manager-revenue');
 const occupiedPercentage = document.querySelector('.percent-occupied');
 const customerRooms = document.querySelector('.customer-rooms');
 const customerCost = document.querySelector('.customer-cost');
+const customerAvailableRooms = document.querySelector('.customer-available');
+const managerAvailableRooms = document.querySelector('.manager-available');
 
 // Event Listeners
 loginButton.addEventListener('click', userLogin)
@@ -36,7 +38,10 @@ loginButton.addEventListener('click', userLogin)
 //Global variables
 
 let currentCustomer, manager, customers, date, bookings, rooms;
-date = "2020/01/21"; // reminder to change
+manager = new Manager(customers, rooms, 'manager', date, bookings);
+//(USE AT END WHEN CURRENT DATE IS REAL DATE)
+// date = new Date() 
+date = '2020/01/21'
 
 // functions
 
@@ -56,7 +61,7 @@ function instantiateData(data) {
     return new Room(room);
   })
   customers = data.users.map(user => {
-    return new Customer(user.id, date, bookings, user.name)
+    return new Customer(user.id, date, bookings, user.name, data.users)
   });
 }
 
@@ -65,8 +70,7 @@ function removeLogin() {
 }
 
 function displayManagerAccount() {
-  manager = new Manager(customers, rooms, 'manager', date, bookings);
-  managerRooms.innerText = manager.provideAvailableRooms(date, bookings, rooms);
+  displayAvailableRooms(date, bookings, rooms, managerRooms, manager)
   managerRevenue.innerText = manager.provideTotalRevenue(date, bookings, rooms);
   occupiedPercentage.innerText = manager.calculatePercentOccupied(date, bookings, rooms);
   removeLogin();
@@ -75,13 +79,11 @@ function displayManagerAccount() {
 
 function displayBookedRooms() {
   let customersRooms = currentCustomer.provideBookedRooms(bookings);
-  console.log(rooms);
-  console.log(customersRooms)
   let bookedRooms = rooms.filter(room => {
-    return customersRooms.find(customerRoom => customerRoom === room.number)
+    let userRooms = customersRooms.find(customerRoom => customerRoom === room.number);
+    return userRooms;
   })
-  console.log(bookedRooms)
-  let usersRooms = bookedRooms.forEach(room => {
+  bookedRooms.forEach(room => {
     customerRooms.innerHTML += `
       <div> 
         <p>${room.number}</p>
@@ -90,7 +92,19 @@ function displayBookedRooms() {
       </div>
     `
   })
-  console.log(usersRooms);
+}
+
+function displayAvailableRooms(date, bookingData, roomData, section, user) {
+  let openRooms = user.showAvailableRooms(date, bookingData, roomData);
+  openRooms.forEach(room => {
+    section.innerHTML += `
+    <div>
+    <p>Room ${room.number}</p>
+    <button>Book Room</button>
+    </div>
+    `
+  })
+  console.log(openRooms)
 }
 
 function displayCustomerAccount() {
@@ -98,7 +112,7 @@ function displayCustomerAccount() {
   currentCustomer = customers.find(customer => `customer${customer.id}` === usernameInput.value);
   let userCosts = currentCustomer.provideTotalCosts(currentCustomer.id, bookings, rooms);
   userNameDisplay.innerText = currentCustomer.provideFirstName();
-  // customerRooms.innerText = currentCustomer.provideBookedRooms(bookings);
+  displayAvailableRooms(date, bookings, rooms, customerAvailableRooms, currentCustomer)
   displayBookedRooms();
   customerCost.innerText = userCosts.toFixed(2);
   customerDisplay.classList.remove('hidden');

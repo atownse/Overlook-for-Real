@@ -2,21 +2,20 @@ import User from './User'
 
 class Manager extends User {
   constructor(customers, rooms, id, date, bookings) {
-    super(id, date, bookings);
-    this.customers = customers;
+    super(id, date, customers, bookings);
     this.rooms = rooms;
     this.currentCustomer = {};
   }
 
-  determineOccupiedRooms(date, bookingData) {
-    let roomsTaken = bookingData.reduce((filledRooms, bookedRoom) => {
-      if (bookedRoom.date === date) {
-        filledRooms.push(bookedRoom.roomNumber)
-      }
-      return filledRooms
-    }, []);
-    return roomsTaken;
-  }
+  // determineOccupiedRooms(date, bookingData) {
+  //   let roomsTaken = bookingData.reduce((filledRooms, bookedRoom) => {
+  //     if (bookedRoom.date === date) {
+  //       filledRooms.push(bookedRoom.roomNumber)
+  //     }
+  //     return filledRooms
+  //   }, []);
+  //   return roomsTaken;
+  // }
 
   // want to match current date to booking date, if dates match, provide list of rooms that are not taken
   provideAvailableRooms(date, bookingData, roomData) {

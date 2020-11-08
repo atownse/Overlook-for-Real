@@ -1,12 +1,16 @@
 import { expect } from 'chai';
+import sampleBookingData from './sample-booking-data';
+import sampleUserData from './sample-user-data'
 import User from '../src/User';
 
 describe('User', () => {
-  let manager, customer5;
+  let manager, customer5, date, customers, bookings;
 
   beforeEach(() => {
-    manager = new User();
-    customer5 = new User(5);
+    customers = sampleUserData;
+    bookings = sampleBookingData;
+    manager = new User('manager', date, customers, bookings);
+    customer5 = new User(5, date, bookings);
   });
 
   it('should be a function', () => {
@@ -36,4 +40,6 @@ describe('User', () => {
   it('should have a default password of overlook2020', () => {
     expect(manager.password).to.equal('overlook2020');
   });
+
+
 })
