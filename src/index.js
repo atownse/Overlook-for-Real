@@ -78,17 +78,12 @@ function displayManagerAccount() {
 
 function displayBookedRooms() {
   let customersRooms = currentCustomer.provideBookedRooms(bookings);
-  let bookedRooms = rooms.filter(room => {
-    let userRooms = customersRooms.find(customerRoom => customerRoom === room.number);
-    return userRooms;
-  })
-  bookedRooms.forEach(room => {
+  customersRooms.forEach(room => {
+    let bookedDate = room.date
     customerRooms.innerHTML += `
-      <div> 
-        <p>${room.number}</p>
-        <p>${room.roomType}: ${room.numBeds} ${room.bedSize}</p>
-        <p>${room.costPerNight}</p>
-      </div>
+      <section id="booked-rooms">
+        <p>You booked Room ${room.roomNumber} on ${moment(bookedDate).format("MMM Do YYYY") }</p>
+      </section>  
     `
   })
 }
@@ -108,6 +103,7 @@ function displayAvailableRooms(date, bookingData, roomData, section, user) {
 }
 
 function showAvailableRooms() {
+  event.preventDefault();
   const calendarDate = document.querySelector('.customer-display .booking-calendar');
   date = calendarDate.value;
   let formattedDate = moment(date).format("YYYY/MM/DD")
@@ -120,10 +116,10 @@ function displayCustomerAccount(userName) {
   removeLogin();
   currentCustomer = customers.find(customer => `customer${customer.id}` === userName);
   let userCosts = currentCustomer.provideTotalCosts(currentCustomer.id, bookings, rooms);
-  userNameDisplay.innerText = currentCustomer.provideFirstName();
+  userNameDisplay.innerText = `Howdy ${currentCustomer.provideFirstName()}`;
   //displayAvailableRooms(date, bookings, rooms, customerAvailableRooms, currentCustomer)
   displayBookedRooms();
-  customerCost.innerText = userCosts.toFixed(2);
+  customerCost.innerText = `You have currently spent $${userCosts.toFixed(2)} here at the Overlook Hotel`;
   customerDisplay.classList.remove('hidden');
 }
 

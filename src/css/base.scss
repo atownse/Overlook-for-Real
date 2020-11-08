@@ -1,10 +1,10 @@
 /* This is an example of using Sass, otherwise plain CSS works too*/
-$primary-background: radial-gradient(circle, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%);
+// $primary-background: radial-gradient(circle, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%);
 ;
 
-body {
-  background: $primary-background;
-}
+// body {
+//   background: $primary-background;
+// }
 
 .login-info {
   background-color: #2ae698;
@@ -27,7 +27,7 @@ body {
 }
 
 .manager-view {
-  background-color: white;
+  background-color: #2ae698;
     height: 10em;
     width: 10em;
     text-align: center;
@@ -35,14 +35,34 @@ body {
 
 .customer-dashboard {
   display: flex;
+  flex-direction: column;
   justify-content: space-around;
+  align-items: flex-end;
 }
 
 .customer-view {
-  background-color: white;
-  height: 10em;
-  width: 10em;
+  background-color: #2ae698;
+  height: 4em; // 100% for .customer-rooms
+  width: 20em;
   text-align: center;
+  margin: 1em;
+  border-color: black;
+  border-style: solid;
+}
+
+.booking-section {
+  display: flex;
+  justify-content: left;
+  padding: 1em
+}
+
+#booked-rooms {
+  margin: 1em;
+  display: flex;
+  justify-content: space-around;
+  background-color: yellow;
+  border-color: black;
+  border-style: solid;  
 }
 
 .hidden {

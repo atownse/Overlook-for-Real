@@ -16,12 +16,13 @@ class Customer extends User {
     let bookedRooms =  bookingData.filter(booking => {
       return booking.userID === this.id
     });
-    return bookedRooms.map(room => {
-      return room.roomNumber
-    });
+    // return bookedRooms.map(room => {
+    //   return room.roomNumber
+    // });
     // return bookingData.filter(booking => {
     //   return booking.userID === this.id
     // });
+    return bookedRooms
   }
 
   provideTotalCosts(id, bookingData, roomData) {

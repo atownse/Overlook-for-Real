@@ -5,8 +5,7 @@
   </head>
   <body>
     <section>
-      <h1>Howdy Partner</h1>
-      <p class="user-name"></p>
+      <h1 class="user-name">Howdy Partner</h1>
       <form class="login-info">
         <label class="user-inputs">Username:</label>
         <input class="user-inputs username" type="text" placeholder="please enter username">
@@ -17,8 +16,8 @@
       <img>
     </section>
     <section class="manager-display hidden">
-      <input class="booking-calendar" type="date">
-      <button class="available-button">Show Available</button>
+      <!-- <input class="booking-calendar" type="date">
+      <button class="available-button">Show Available</button> -->
       <section class="manager-dashboard">
         <section class="manager-view manager-rooms">Available Rooms</section>
         <section class="manager-view manager-revenue">Total Revenue</section>
@@ -26,14 +25,17 @@
       </section>
     </section>
     <section class="customer-display hidden">
-      <section>
+      <form class="booking-section">
         <input class="booking-calendar" type="date">
         <button class="available-button" id="customer-available-button">Show Available</button>
-        <section class="customer-dashboard">
-          <section class="customer-view customer-rooms">Rooms Booked</section>
-          <section class="customer-view customer-cost">Total Spent</section>
-        </section>
         <section class="customer-available">Available Rooms</section>
+      </form>
+      <section>
+        <section class="customer-dashboard">
+          <section class="customer-view customer-cost">Total Spent:</section>
+          <section class="customer-view customer-rooms">Rooms Booked:</section>
+        </section>
+        <!-- <section class="customer-available">Available Rooms</section> -->
       </section>
     </section>
     <img src="./images/turing-logo.png" alt="turing logo" height="100px" width="100px">
