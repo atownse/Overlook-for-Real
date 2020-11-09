@@ -13,6 +13,7 @@ import Booking from './Booking';
 import apiCalls from './apiCalls';
 import Room from './Room';
 import moment from 'moment';
+import domUpdate from './DOM-update'
 
 
 // Query Selectors--------------------
@@ -39,7 +40,8 @@ loginButton.addEventListener('click', userLogin);
 customerRoomsButton.addEventListener('click', showCustomerAvailableRooms);
 managerRoomsButton.addEventListener('click', displayManagerAccount);
 updateDisplayButton.addEventListener('click', updateManagerDisplay);
-// assignCustomerButton.addEventListener('click', assignCustomer)
+assignCustomerButton.addEventListener('click', assignCustomer);
+
 //Global variables
 
 let currentCustomer, manager, customers, date, bookings, rooms, bookingData;
@@ -72,22 +74,18 @@ function removeLogin() {
   document.querySelector('.login-info').classList.add('hidden');
 }
 
-assignCustomerButton.addEventListener('click', assignCustomer);
-
 function updateManagerDisplay() {
   date = calendarDate.value;
   let formattedDate = moment(date).format("YYYY/MM/DD");
-  managerRevenue.innerText = manager.provideTotalRevenue(formattedDate, bookings, rooms);
-  occupiedPercentage.innerText = manager.calculatePercentOccupied(formattedDate, bookings, rooms);
-
+  let total = manager.provideTotalRevenue(formattedDate, bookings, rooms);
+  let percent = manager.calculatePercentOccupied(formattedDate, bookings, rooms)
+  domUpdate.fixManagerDisplay(managerRevenue, occupiedPercentage, total, percent)
 }
 
 function assignCustomer() {
   const customerID = document.querySelector('.customer-input');
   currentCustomer = customers.find(customer => `customer${customer.id}` === customerID.value)
-  console.log(currentCustomer)
   event.preventDefault();
-  // const calendarDate = document.querySelector('.manager-display .manager-calendar');
   date = calendarDate.value;
   let formattedDate = moment(date).format("YYYY/MM/DD");
   displayAvailableRooms(formattedDate, bookings, rooms, managerRooms, manager)
@@ -97,12 +95,9 @@ function assignCustomer() {
 
 function displayManagerAccount() {
   event.preventDefault();
-  // const calendarDate = document.querySelector('.manager-display .manager-calendar');
   date = calendarDate.value;
   let formattedDate = moment(date).format("YYYY/MM/DD");
   displayAvailableRooms(formattedDate, bookings, rooms, managerRooms, manager)
-  managerRevenue.innerText = manager.provideTotalRevenue(date, bookings, rooms);
-  occupiedPercentage.innerText = manager.calculatePercentOccupied(date, bookings, rooms);
   removeLogin();
   managerDisplay.classList.remove('hidden');
 }
@@ -111,11 +106,8 @@ function displayBookedRooms() {
   let customersRooms = currentCustomer.provideBookedRooms(bookings);
   customersRooms.forEach(room => {
     let bookedDate = room.date
-    customerRooms.innerHTML += `
-      <section id="booked-rooms">
-        <p>You booked Room ${room.roomNumber} on ${moment(bookedDate).format("MMM Do YYYY") }</p>
-      </section>  
-    `
+    let formattedDate = moment(bookedDate).format("MMM Do YYYY");
+    domUpdate.createBookedRooms(customerRooms, room.roomNumber, formattedDate);
   })
 }
 
@@ -123,12 +115,7 @@ function displayAvailableRooms(date, bookingData, roomData, section, user) {
   let openRooms = user.showAvailableRooms(date, bookingData, roomData);
   section.innerHTML = '';
   openRooms.forEach(room => {
-    section.innerHTML += `
-    <div>
-      <p>Room ${room.number}</p>
-      <button data-room-id="${room.number}">Book Room</button>
-    </div>
-    `
+    domUpdate.createAvailableRooms(section, room.number);
   })
 }
 
