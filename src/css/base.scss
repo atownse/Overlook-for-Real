@@ -65,6 +65,18 @@
   border-style: solid;  
 }
 
+.customer-display {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.booking-section {
+  display: flex;
+  justify-content: end;
+  flex-direction: column;
+}
+
 .hidden {
   display: none;
 }

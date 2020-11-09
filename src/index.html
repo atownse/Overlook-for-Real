@@ -16,29 +16,35 @@
       <img>
     </section>
     <section class="manager-display hidden">
-      <!-- <input class="booking-calendar" type="date">
-      <button class="available-button">Show Available</button> -->
+      <section>
+        <input class="manager-calendar" type="date">
+        <button id="manager-available-button">Show Available</button>
+      </section>
+      <input class="customer-input" type="text" placeholder="enter customer ID">
+      <button class="manager-customer">Enter Customer ID</button>
       <section class="manager-dashboard">
         <section class="manager-view manager-rooms">Available Rooms</section>
+        <button class="update-button">Update Revenue and Percent</button>
         <section class="manager-view manager-revenue">Total Revenue</section>
         <section class="manager-view percent-occupied">Percent Occupied</section>
       </section>
     </section>
     <section class="customer-display hidden">
       <form class="booking-section">
-        <input class="booking-calendar" type="date">
-        <button class="available-button" id="customer-available-button">Show Available</button>
+        <section>
+          <input class="booking-calendar" type="date">
+          <button class="available-button" id="customer-available-button">Show Available</button>
+        </section>
         <section class="customer-available">Available Rooms</section>
       </form>
       <section>
         <section class="customer-dashboard">
           <section class="customer-view customer-cost">Total Spent:</section>
           <section class="customer-view customer-rooms">Rooms Booked:</section>
-        </section>
-        <!-- <section class="customer-available">Available Rooms</section> -->
+        </section> 
       </section>
     </section>
-    <img src="./images/turing-logo.png" alt="turing logo" height="100px" width="100px">
+    <!-- <img src="./images/turing-logo.png" alt="turing logo" height="100px" width="100px"> -->
 
     <!-- Do not include the index.js or main.bundle.js file here - it is done automatically by the webpack server -->
   </body>
