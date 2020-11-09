@@ -24,10 +24,19 @@
         <section class="manager-view percent-occupied">Percent Occupied</section>
       </section>
     </section>
-    <section class="customer-display hidden">
-      <form class="booking-section">
-        <input class="booking-calendar" type="date">
-        <button class="available-button" id="customer-available-button">Show Available</button>
+    <section class="customer-display hidden" style="
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+">
+      <form class="booking-section" style="
+      display: flex;
+      justify-content: end;
+      flex-direction: column;">
+        <section>
+          <input class="booking-calendar" type="date">
+          <button class="available-button" id="customer-available-button">Show Available</button>
+        </section>
         <section class="customer-available">Available Rooms</section>
       </form>
       <section>

@@ -36,7 +36,7 @@ customerRoomsButton.addEventListener('click', showAvailableRooms)
 
 //Global variables
 
-let currentCustomer, manager, customers, date, bookings, rooms;
+let currentCustomer, manager, customers, date, bookings, rooms, bookingData;
 manager = new Manager(customers, rooms, 'manager', date, bookings);
 //(USE AT END WHEN CURRENT DATE IS REAL DATE)
 // date = '2020/01/21'
@@ -95,7 +95,7 @@ function displayAvailableRooms(date, bookingData, roomData, section, user) {
     section.innerHTML += `
     <div>
     <p>Room ${room.number}</p>
-    <button>Book Room</button>
+    <button data-room-id="${room.number}">Book Room</button>
     </div>
     `
   })
@@ -110,6 +110,7 @@ function showAvailableRooms() {
   const customerAvailableRooms = document.querySelector('.customer-available');
   displayAvailableRooms(formattedDate, bookings, rooms, customerAvailableRooms, currentCustomer);
   //displayAvailableRooms(formattedDate, bookings, rooms, managerRooms, currentCustomer);
+  bindBookingButtons()
 }
 
 function displayCustomerAccount(userName) {
@@ -141,4 +142,18 @@ function login(userName, password) {
   } else if (userName.includes('customer') && password === 'overlook2020') {
     displayCustomerAccount(userName);
   }
+}
+
+function bindBookingButtons() {
+  let buttons = document.querySelectorAll('[data-room-id]');
+  buttons.forEach(button => {
+    button.addEventListener('click', event => {
+      event.preventDefault()
+      let roomToBook = event.target.getAttribute("data-room-id");
+      let room = rooms.find(roomToFind => roomToFind.number == roomToBook);
+      bookingData = {'userID': currentCustomer.id, 'date': moment(date).format("YYYY/MM/DD"), 'roomNumber': room.number}
+      console.log(bookingData)
+      apiCalls.addBookingData(bookingData);
+    })
+  })
 }
