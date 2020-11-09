@@ -7,13 +7,12 @@ import './css/base.scss';
 // An example of how you tell webpack to use an image (also need to link to it in the index.html)
 import './images/turing-logo.png'
 
-console.log('This is the JavaScript entry file - your code begins here.');
-
 import Customer from './Customer';
 import Manager from './Manager';
 import Booking from './Booking';
 import apiCalls from './apiCalls';
 import Room from './Room';
+import moment from 'moment';
 
 
 // Query Selectors--------------------
@@ -29,24 +28,29 @@ const managerRevenue = document.querySelector('.manager-revenue');
 const occupiedPercentage = document.querySelector('.percent-occupied');
 const customerRooms = document.querySelector('.customer-rooms');
 const customerCost = document.querySelector('.customer-cost');
+const customerRoomsButton = document.querySelector('#customer-available-button');
 
 // Event Listeners
-loginButton.addEventListener('click', userLogin)
+loginButton.addEventListener('click', userLogin);
+customerRoomsButton.addEventListener('click', showAvailableRooms)
 
 //Global variables
 
 let currentCustomer, manager, customers, date, bookings, rooms;
-date = "2020/01/21"; // reminder to change
+manager = new Manager(customers, rooms, 'manager', date, bookings);
+//(USE AT END WHEN CURRENT DATE IS REAL DATE)
+// date = '2020/01/21'
 
 // functions
 
 Promise.all([apiCalls.getCustomerData(), apiCalls.getRoomData(), apiCalls.getBookingData()])
-  .then((data) => {
-    const condensedData = data.reduce((dataList, dataItem) => {
-      return dataList = {...dataList, ...dataItem};
-    }, {})
-    instantiateData(condensedData)
-  });
+.then((data) => {
+  const condensedData = data.reduce((dataList, dataItem) => {
+    return dataList = {...dataList, ...dataItem};
+  }, {})
+  instantiateData(condensedData)
+  login('customer29', 'overlook2020'); // for development
+});
 
 function instantiateData(data) {
   bookings = data.bookings.map(booking => {
@@ -56,7 +60,7 @@ function instantiateData(data) {
     return new Room(room);
   })
   customers = data.users.map(user => {
-    return new Customer(user.id, date, bookings, user.name)
+    return new Customer(user.id, date, bookings, user.name, data.users)
   });
 }
 
@@ -65,8 +69,7 @@ function removeLogin() {
 }
 
 function displayManagerAccount() {
-  manager = new Manager(customers, rooms, 'manager', date, bookings);
-  managerRooms.innerText = manager.provideAvailableRooms(date, bookings, rooms);
+  displayAvailableRooms(date, bookings, rooms, managerRooms, manager)
   managerRevenue.innerText = manager.provideTotalRevenue(date, bookings, rooms);
   occupiedPercentage.innerText = manager.calculatePercentOccupied(date, bookings, rooms);
   removeLogin();
@@ -75,32 +78,48 @@ function displayManagerAccount() {
 
 function displayBookedRooms() {
   let customersRooms = currentCustomer.provideBookedRooms(bookings);
-  console.log(rooms);
-  console.log(customersRooms)
-  let bookedRooms = rooms.filter(room => {
-    return customersRooms.find(customerRoom => customerRoom === room.number)
-  })
-  console.log(bookedRooms)
-  let usersRooms = bookedRooms.forEach(room => {
+  customersRooms.forEach(room => {
+    let bookedDate = room.date
     customerRooms.innerHTML += `
-      <div> 
-        <p>${room.number}</p>
-        <p>${room.roomType}: ${room.numBeds} ${room.bedSize}</p>
-        <p>${room.costPerNight}</p>
-      </div>
+      <section id="booked-rooms">
+        <p>You booked Room ${room.roomNumber} on ${moment(bookedDate).format("MMM Do YYYY") }</p>
+      </section>  
     `
   })
-  console.log(usersRooms);
 }
 
-function displayCustomerAccount() {
+function displayAvailableRooms(date, bookingData, roomData, section, user) {
+  let openRooms = user.showAvailableRooms(date, bookingData, roomData);
+  section.innerHTML = '';
+  openRooms.forEach(room => {
+    section.innerHTML += `
+    <div>
+    <p>Room ${room.number}</p>
+    <button>Book Room</button>
+    </div>
+    `
+  })
+  console.log(openRooms)
+}
+
+function showAvailableRooms() {
+  event.preventDefault();
+  const calendarDate = document.querySelector('.customer-display .booking-calendar');
+  date = calendarDate.value;
+  let formattedDate = moment(date).format("YYYY/MM/DD")
+  const customerAvailableRooms = document.querySelector('.customer-available');
+  displayAvailableRooms(formattedDate, bookings, rooms, customerAvailableRooms, currentCustomer);
+  //displayAvailableRooms(formattedDate, bookings, rooms, managerRooms, currentCustomer);
+}
+
+function displayCustomerAccount(userName) {
   removeLogin();
-  currentCustomer = customers.find(customer => `customer${customer.id}` === usernameInput.value);
+  currentCustomer = customers.find(customer => `customer${customer.id}` === userName);
   let userCosts = currentCustomer.provideTotalCosts(currentCustomer.id, bookings, rooms);
-  userNameDisplay.innerText = currentCustomer.provideFirstName();
-  // customerRooms.innerText = currentCustomer.provideBookedRooms(bookings);
+  userNameDisplay.innerText = `Howdy ${currentCustomer.provideFirstName()}`;
+  //displayAvailableRooms(date, bookings, rooms, customerAvailableRooms, currentCustomer)
   displayBookedRooms();
-  customerCost.innerText = userCosts.toFixed(2);
+  customerCost.innerText = `You have currently spent $${userCosts.toFixed(2)} here at the Overlook Hotel`;
   customerDisplay.classList.remove('hidden');
 }
 
@@ -108,10 +127,18 @@ function userLogin(event) {
   event.preventDefault();
   let userName = usernameInput.value;
   let password = passwordInput.value;
+  login(userName, password)
+  // if (userName === 'manager' && password === 'overlook2020') {
+  //   displayManagerAccount();
+  // } else if (userName.includes('customer') && password === 'overlook2020') {
+  //   displayCustomerAccount();
+  // }
+}
 
+function login(userName, password) {
   if (userName === 'manager' && password === 'overlook2020') {
     displayManagerAccount();
   } else if (userName.includes('customer') && password === 'overlook2020') {
-    displayCustomerAccount();
+    displayCustomerAccount(userName);
   }
 }

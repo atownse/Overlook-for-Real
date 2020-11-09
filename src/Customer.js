@@ -1,8 +1,8 @@
 import User from './User'
 
 class Customer extends User {
-  constructor(id, date, bookings, name) {
-    super(id, date, bookings);
+  constructor(id, date, bookings, name, customers) {
+    super(id, date, customers, bookings);
     this.name = name;
     this.bookings = this.provideBookedRooms(bookings);
   }
@@ -16,12 +16,13 @@ class Customer extends User {
     let bookedRooms =  bookingData.filter(booking => {
       return booking.userID === this.id
     });
-    return bookedRooms.map(room => {
-      return room.roomNumber
-    });
+    // return bookedRooms.map(room => {
+    //   return room.roomNumber
+    // });
     // return bookingData.filter(booking => {
     //   return booking.userID === this.id
     // });
+    return bookedRooms
   }
 
   provideTotalCosts(id, bookingData, roomData) {

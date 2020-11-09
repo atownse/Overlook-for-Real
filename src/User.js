@@ -1,19 +1,46 @@
 class User {
-  constructor(id, date, bookings) {
+  constructor(id, date, customers, bookings) {
     this.id = id || 'manager';
-    if (id) {
-      this.username = `customer${this.id}`
-    } else {
+    if (id === 'manager') {
       this.username = 'manager'
+    } else {
+      this.username = `customer${this.id}`
     }
     this.password = 'overlook2020';
     this.date = date;
+    this.customers = customers;
     this.bookings = bookings || [];
   }
 
-  bookRoom(booking) {
-    this.bookings.push(booking);
+  createDate(date) {
+    let currentDate = new Date(date);
+    return currentDate.toLocaleDateString();
   }
+
+  determineOccupiedRooms(date, bookingData) {
+    let roomsTaken = bookingData.reduce((filledRooms, bookedRoom) => {
+      if (bookedRoom.date === date) {
+        filledRooms.push(bookedRoom.roomNumber)
+      }
+      return filledRooms
+    }, []);
+    return roomsTaken;
+  }
+
+  showAvailableRooms(date, bookingData, roomData) {
+    let takenRooms = this.determineOccupiedRooms(date, bookingData);
+    let openRooms = roomData.reduce((vacantRooms, room) => {
+      if (!takenRooms.includes(room.number)) {
+        vacantRooms.push(room);
+      }
+      return vacantRooms;
+    }, [])
+    return openRooms;
+  }
+  
+  // bookRoom(booking) {
+  //   this.bookings.push(booking);
+  // }
 }
 
 export default User;
