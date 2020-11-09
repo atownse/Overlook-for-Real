@@ -13,6 +13,7 @@ import Booking from './Booking';
 import apiCalls from './apiCalls';
 import Room from './Room';
 import moment from 'moment';
+import domUpdate from './DOM-update'
 
 
 // Query Selectors--------------------
@@ -77,9 +78,9 @@ assignCustomerButton.addEventListener('click', assignCustomer);
 function updateManagerDisplay() {
   date = calendarDate.value;
   let formattedDate = moment(date).format("YYYY/MM/DD");
-  managerRevenue.innerText = manager.provideTotalRevenue(formattedDate, bookings, rooms);
-  occupiedPercentage.innerText = manager.calculatePercentOccupied(formattedDate, bookings, rooms);
-
+  let total = manager.provideTotalRevenue(formattedDate, bookings, rooms);
+  let percent = manager.calculatePercentOccupied(formattedDate, bookings, rooms)
+  domUpdate.fixManagerDisplay(managerRevenue, occupiedPercentage, total, percent)
 }
 
 function assignCustomer() {
