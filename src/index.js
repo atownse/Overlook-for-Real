@@ -87,8 +87,8 @@ function updateManagerDisplay() {
 }
 
 function assignCustomer() {
-  const customerID = document.querySelector('.customer-input');
-  currentCustomer = customers.find(customer => `customer${customer.id}` === customerID.value)
+  const customerName = document.querySelector('.customer-input');
+  currentCustomer = customers.find(customer => customer.name === customerName.value)
   event.preventDefault();
   date = calendarDate.value;
   let formattedDate = moment(date).format("YYYY/MM/DD");
@@ -229,7 +229,7 @@ function showFilteredRooms() {
       return room
     }
   })
-  const filteredRoomDisplay = document.querySelector('.filtered-rooms');
+  const filteredRoomDisplay = document.querySelector('.filter-rooms');
   let selectedType = event.target.value;
   let filteredRooms = currentCustomer.filterRoomsByType(selectedType, openRooms)
   filteredRoomDisplay.innerHTML = '';

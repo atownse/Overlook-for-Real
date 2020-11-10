@@ -16,7 +16,7 @@ const domUpdate = {
         <img class="room-image" src="../images/hotel-2.jpg">
         <button data-room-id="${roomNumber}">Book Room ${roomNumber}</button>
       </div>
-      <p class="room-description">Room ${roomNumber} is a ${type} with ${bedNumber} ${bedType} and costs $${cost}</P
+      <p class="room-description">Room ${roomNumber} is a ${type} with ${bedNumber} ${bedType} and costs $${cost} per night</P
     </section>
     `
   },

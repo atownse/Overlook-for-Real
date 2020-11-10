@@ -3,7 +3,7 @@
 ;
 
 body {
-  background: url("../images/hotel-motel.jpg") center / 100% 100%;
+  background: url("../images/hotel-motel.jpg") no-repeat center / 100% 100% fixed;
 }
 
 div {
@@ -19,7 +19,7 @@ div {
 
 .room-description {
   width: 7em;
-  background-color: wheat;
+  background-color: white;
   align-content: center;
   text-align: center;
   border-style: solid;
@@ -36,6 +36,8 @@ div {
   width: 10.5em;
   border-radius: .2em;
   text-align: center;
+  border: .15em black solid;
+  box-shadow: 5px 5px 5px black;
 }
 
 .login-info {
@@ -67,6 +69,7 @@ div {
   text-align: center;
   margin: 1em;
   border: .3em black solid;
+  box-shadow: 5px 5px 5px black;
 }
 
 .customer-dashboard {
@@ -86,17 +89,22 @@ div {
 
 .customer-cost {
   background-color: wheat;
+  box-shadow: 5px 5px 5px black;
 }
 
 .customer-rooms {
   background-color: #2ae698;
   height: 100%;
+  box-shadow: 5px 5px 5px black;
 }
 
 .booking-section {
   display: flex;
   justify-content: left;
-  padding: 1em
+  padding: 1em;
+  background-color: wheat;
+  border: .3em black solid;
+  box-shadow: 5px 5px 5px black;
 }
 
 #booked-rooms {
@@ -104,8 +112,8 @@ div {
   display: flex;
   justify-content: space-around;
   background-color: wheat;
-  border-color: black;
-  border-style: solid;  
+  border: .3em black solid;
+  box-shadow: 5px 5px 5px black;
 }
 
 .customer-display {
@@ -128,15 +136,29 @@ div {
   margin: 1em;
 }
 
+.filter-rooms {
+  background-color: #2ae698;
+  border: .3em black solid;
+  margin: 1em;
+}
+
 .filtered-rooms {
   background-color: wheat;
   width: 10em;
   height: 100%;
   margin: 1em;
+  border: .3em black solid;
+  box-shadow: 5px 5px 5px black;
+}
+
+.show-available {
+  display: flex;
+  justify-content: center;
 }
 
 .room-container {
   display: flex;
+  box-shadow: 5px 5px 5px black;
 }
 
 .day-statistics {
@@ -146,6 +168,7 @@ div {
   align-items: center;
   height: 12em;
   border: .3em black solid;
+  box-shadow: 5px 5px 5px black;
 }
 
 .rooms-occupied {
@@ -153,11 +176,13 @@ div {
   border: .3em black solid;
   margin: 0;
   width: 95.5%;
+  box-shadow: 5px 5px 5px black;
+  background-color: #2ae698;
 }
 
 .manager-rooms {
   height: 100%;
-  width: 36%;
+  width: 23.8em;
   border: .3em black solid;
 }
 
@@ -165,6 +190,15 @@ div {
   text-align: center;
   background: wheat;
   border: .3em black solid;
+  box-shadow: 5px 5px 5px black;
+}
+
+#occupied-rooms {
+  border: .2em black solid;
+  padding: 0 0 1em;
+  margin: 1em;
+  background-color: wheat;
+  box-shadow: 5px 5px 5px black;
 }
 
 .update-section {
