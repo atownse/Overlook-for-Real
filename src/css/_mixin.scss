@@ -1,0 +1,12 @@
+@mixin display-format($type, $space, $direction, $wrap) {
+  display: $type;
+  justify-content: $space;
+  flex-direction: $direction;
+  flex-wrap: $wrap;
+}
+
+@mixin format-style($color, $borderStyling, $shadow) {
+  background-color: $color;
+  border: $borderStyling;
+  box-shadow: $shadow;
+}

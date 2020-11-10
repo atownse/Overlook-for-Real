@@ -13,8 +13,8 @@ const domUpdate = {
     element.innerHTML += `
     <section class="room-container">
       <div>
-        <img class="room-image" src="../images/hotel-2.jpg">
-        <button data-room-id="${roomNumber}">Book Room ${roomNumber}</button>
+        <img class="room-image" src="../images/hotel-2.jpg" alt="Room Image">
+        <button aria-label="room-${roomNumber}-booking-button" data-room-id="${roomNumber}">Book Room ${roomNumber}</button>
       </div>
       <p class="room-description">Room ${roomNumber} is a ${type} with ${bedNumber} ${bedType} and costs $${cost} per night</P
     </section>
@@ -33,7 +33,7 @@ const domUpdate = {
     element.innerHTML += `
       <section id="occupied-rooms">
         <p>Room ${roomNumber} is occupied</p>
-        <button delete-button-id="${roomNumber}">Remove Booking</button>
+        <button aria-label="remove-booking-button" delete-button-id="${roomNumber}">Remove Booking</button>
       </section>
     `
   },
@@ -41,6 +41,13 @@ const domUpdate = {
   displayFilteredRoomsByType: (element, roomNumber, event) => {
     element.innerHTML += `
       <article class="filtered-rooms">Room ${roomNumber} is a ${event}</article>
+    `
+  },
+
+  createLogOutButton: (element) => {
+    element.innerHTML = '';
+    element.innerHTML = `
+    <button aria-label="log-out-button" id="log-out" class="log-out">Log Out</button>
     `
   }
 }

@@ -162,11 +162,18 @@ function userLogin(event) {
 }
 
 function login(userName, password) {
+  const logOutButton = document.querySelector('.log-out');
   if (userName === 'manager' && password === 'overlook2020') {
+    const logOutManagerSection = document.querySelector('.log-out-manager');
     displayManagerAccount();
+    domUpdate.createLogOutButton(logOutManagerSection)
+    logOutButton.addEventListener('click', logOut);
   } else if (userName.includes('customer') && password === 'overlook2020') {
     displayCustomerAccount(userName);
     createRoomTypeDropdown();
+    const logOutCustomerSection = document.querySelector('.log-out-customer');
+    domUpdate.createLogOutButton(logOutCustomerSection)
+    logOutButton.addEventListener('click', logOut);
   }
 }
 
@@ -236,4 +243,8 @@ function showFilteredRooms() {
   filteredRooms.forEach(room => { 
     domUpdate.displayFilteredRoomsByType(filteredRoomDisplay, room.number, selectedType)
   });
+}
+
+function logOut() {
+  location.reload()
 }

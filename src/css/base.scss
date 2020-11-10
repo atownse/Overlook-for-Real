@@ -1,29 +1,30 @@
 /* This is an example of using Sass, otherwise plain CSS works too*/
 // $primary-background: radial-gradient(circle, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%);
 ;
+@import 'mixin';
 
 body {
   background: url("../images/hotel-motel.jpg") no-repeat center / 100% 100% fixed;
 }
 
 div {
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  flex-wrap: wrap;
+  @include display-format(flex, center, column, wrap);
   // background-color: wheat;
   margin: 1em 0 1em 1em;
   border-style: solid;
   border-color: black;
 }
 
+label {
+  font-weight: 900;
+  text-decoration: underline;
+}
+
 .room-description {
+  @include format-style(wheat, .3em black solid, none);
   width: 7em;
-  background-color: white;
   align-content: center;
   text-align: center;
-  border-style: solid;
-  border-color: black;
 }
 
 .room-image {
@@ -32,24 +33,30 @@ div {
 }
 
 .user-name {
-  background-color: wheat;
+  @include format-style(wheat, .15em black solid, 5px 5px 5px black);
   width: 10.5em;
   border-radius: .2em;
   text-align: center;
-  border: .15em black solid;
-  box-shadow: 5px 5px 5px black;
+  // background-color: wheat;
+  // border: .15em black solid;
+  // box-shadow: 5px 5px 5px black;
 }
 
 .login-info {
-  background-color: #2ae698;
   height: 12em;
   width: 12em;
-  display: flex;
-  flex-direction: column;
-  justify-content: right;
+  @include display-format(flex, right, column, none);
   margin: 12em 0;
-  border-style: solid;
-  border-color: black;
+  @include format-style(#2ae698, .3em black solid, 5px 5px 5px black);
+  // background-color: #2ae698;
+  // border-style: solid;
+  // border-color: black;
+  // box-shadow: 5px 5px 5px black;
+}
+
+.log-out-form {
+  @include display-format(flex, center, row, none);
+  margin: 7em;
 }
 
 .user-inputs {
@@ -58,24 +65,24 @@ div {
 }
 
 .manager-dashboard {
-  display: flex;
-  justify-content: space-between;
+  @include display-format(flex, space-between, row, none);
+  // display: flex;
+  // justify-content: space-between;
 }
 
 .manager-view {
-  background-color: wheat;
   height: 10em;
   width: 10em;
   text-align: center;
   margin: 1em;
-  border: .3em black solid;
-  box-shadow: 5px 5px 5px black;
+  @include format-style(wheat, .3em black solid, 5px 5px 5px black);
+  // background-color: wheat;
+  // border: .3em black solid;
+  // box-shadow: 5px 5px 5px black;
 }
 
 .customer-dashboard {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
+  @include display-format(flex, space-around, column, none);
   align-items: flex-end;
 }
 
@@ -99,8 +106,7 @@ div {
 }
 
 .booking-section {
-  display: flex;
-  justify-content: left;
+  @include display-format(flex, left, row, none);
   padding: 1em;
   background-color: wheat;
   border: .3em black solid;
@@ -108,52 +114,43 @@ div {
 }
 
 #booked-rooms {
+  @include display-format(flex, space-around, row, none);
+  @include format-style(wheat, .3em black solid, 5px 5px 5px black);
   margin: 1em;
-  display: flex;
-  justify-content: space-around;
-  background-color: wheat;
-  border: .3em black solid;
-  box-shadow: 5px 5px 5px black;
+}
+
+.customer-info {
+  @include display-format(flex, space-between, row, none);
 }
 
 .customer-display {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+  @include display-format(flex, space-evenly, column, none);
 }
 
 .booking-section {
-  display: flex;
-  justify-content: end;
-  flex-direction: column;
+  @include display-format(flex, end, column, none);
 }
 
 .filter-types {
-  display: flex;
-  justify-content: center;
+  @include display-format(flex, center, column, none);
   height: fit-content;
-  flex-direction: column;
   margin: 1em;
 }
 
 .filter-rooms {
-  background-color: #2ae698;
-  border: .3em black solid;
+  @include format-style(#2ae698, .3em black solid, 5px 5px 5px black);
   margin: 1em;
 }
 
 .filtered-rooms {
-  background-color: wheat;
   width: 10em;
   height: 100%;
   margin: 1em;
-  border: .3em black solid;
-  box-shadow: 5px 5px 5px black;
+  @include format-style(wheat, .3em black solid, 5px 5px 5px black);
 }
 
 .show-available {
-  display: flex;
-  justify-content: center;
+  @include display-format(flex, center, row, none);
 }
 
 .room-container {
@@ -162,22 +159,17 @@ div {
 }
 
 .day-statistics {
-  display: flex;
-  flex-direction: column;
-  background: #2ae698;
+  @include display-format(flex, center, column, none);
   align-items: center;
   height: 12em;
-  border: .3em black solid;
-  box-shadow: 5px 5px 5px black;
+  @include format-style(#2ae698, .3em black solid, 5px 5px 5px black);
 }
 
 .rooms-occupied {
   height: 86%;
-  border: .3em black solid;
-  margin: 0;
   width: 95.5%;
-  box-shadow: 5px 5px 5px black;
-  background-color: #2ae698;
+  margin: 0;
+  @include format-style(#2ae698, .3em black solid, 5px 5px 5px black);
 }
 
 .manager-rooms {
@@ -188,17 +180,13 @@ div {
 
 .occupied-text {
   text-align: center;
-  background: wheat;
-  border: .3em black solid;
-  box-shadow: 5px 5px 5px black;
+  @include format-style(wheat, .3em black solid, 5px 5px 5px black);
 }
 
 #occupied-rooms {
-  border: .2em black solid;
   padding: 0 0 1em;
   margin: 1em;
-  background-color: wheat;
-  box-shadow: 5px 5px 5px black;
+  @include format-style(wheat, .3em black solid, 5px 5px 5px black);
 }
 
 .update-section {
@@ -207,6 +195,12 @@ div {
 
 .hidden {
   display: none;
-  border-style: solid;
-  border-color: black;
+}
+
+#blockColorblindContent {
+  display: none;
+}
+
+#lo-engage-ext-container {
+  display: none;
 }
