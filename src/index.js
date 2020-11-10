@@ -120,7 +120,7 @@ function displayAvailableRooms(date, bookingData, roomData, section, user) {
   let openRooms = user.showAvailableRooms(date, bookingData, roomData);
   section.innerHTML = '';
   openRooms.forEach(room => {
-    domUpdate.createAvailableRooms(section, room.number);
+    domUpdate.createAvailableRooms(section, room);
   })
   let takenRooms = rooms.filter(room => {
     if (!openRooms.includes(room) && !managerDisplay.classList.contains('hidden')) {
@@ -166,6 +166,7 @@ function login(userName, password) {
     displayManagerAccount();
   } else if (userName.includes('customer') && password === 'overlook2020') {
     displayCustomerAccount(userName);
+    createRoomTypeDropdown();
   }
 }
 
@@ -228,10 +229,11 @@ function showFilteredRooms() {
       return room
     }
   })
-  createRoomTypeDropdown();
+  const filteredRoomDisplay = document.querySelector('.filtered-rooms');
   let selectedType = event.target.value;
   let filteredRooms = currentCustomer.filterRoomsByType(selectedType, openRooms)
-  date = calendarDate.value;
-  let formattedDate = moment(date).format("YYYY/MM/DD");
-  displayAvailableRooms(formattedDate, bookings, filteredRooms, customerRooms, currentCustomer) //section will change depending on how I style things
+  filteredRoomDisplay.innerHTML = '';
+  filteredRooms.forEach(room => { 
+    domUpdate.displayFilteredRoomsByType(filteredRoomDisplay, room.number, selectedType)
+  });
 }

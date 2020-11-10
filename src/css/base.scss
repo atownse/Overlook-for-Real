@@ -2,18 +2,52 @@
 // $primary-background: radial-gradient(circle, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%);
 ;
 
-// body {
-//   background: $primary-background;
-// }
+body {
+  background: url("../images/hotel-motel.jpg") center / 100% 100%;
+}
+
+div {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  flex-wrap: wrap;
+  // background-color: wheat;
+  margin: 1em 0 1em 1em;
+  border-style: solid;
+  border-color: black;
+}
+
+.room-description {
+  width: 7em;
+  background-color: wheat;
+  align-content: center;
+  text-align: center;
+  border-style: solid;
+  border-color: black;
+}
+
+.room-image {
+  width: 14.1em;
+  height: 10em;
+}
+
+.user-name {
+  background-color: wheat;
+  width: 10.5em;
+  border-radius: .2em;
+  text-align: center;
+}
 
 .login-info {
   background-color: #2ae698;
   height: 12em;
-  width: 15em;
+  width: 12em;
   display: flex;
   flex-direction: column;
   justify-content: right;
-  margin: 12em 0
+  margin: 12em 0;
+  border-style: solid;
+  border-color: black;
 }
 
 .user-inputs {
@@ -23,14 +57,16 @@
 
 .manager-dashboard {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
 }
 
 .manager-view {
-  background-color: #2ae698;
-    height: 10em;
-    width: 10em;
-    text-align: center;
+  background-color: wheat;
+  height: 10em;
+  width: 10em;
+  text-align: center;
+  margin: 1em;
+  border: .3em black solid;
 }
 
 .customer-dashboard {
@@ -41,13 +77,20 @@
 }
 
 .customer-view {
-  background-color: #2ae698;
-  height: 4em; // 100% for .customer-rooms
+  height: 3em; 
   width: 20em;
   text-align: center;
   margin: 1em;
-  border-color: black;
-  border-style: solid;
+  border: .3em black solid;
+}
+
+.customer-cost {
+  background-color: wheat;
+}
+
+.customer-rooms {
+  background-color: #2ae698;
+  height: 100%;
 }
 
 .booking-section {
@@ -60,7 +103,7 @@
   margin: 1em;
   display: flex;
   justify-content: space-around;
-  background-color: yellow;
+  background-color: wheat;
   border-color: black;
   border-style: solid;  
 }
@@ -77,6 +120,59 @@
   flex-direction: column;
 }
 
+.filter-types {
+  display: flex;
+  justify-content: center;
+  height: fit-content;
+  flex-direction: column;
+  margin: 1em;
+}
+
+.filtered-rooms {
+  background-color: wheat;
+  width: 10em;
+  height: 100%;
+  margin: 1em;
+}
+
+.room-container {
+  display: flex;
+}
+
+.day-statistics {
+  display: flex;
+  flex-direction: column;
+  background: #2ae698;
+  align-items: center;
+  height: 12em;
+  border: .3em black solid;
+}
+
+.rooms-occupied {
+  height: 86%;
+  border: .3em black solid;
+  margin: 0;
+  width: 95.5%;
+}
+
+.manager-rooms {
+  height: 100%;
+  width: 36%;
+  border: .3em black solid;
+}
+
+.occupied-text {
+  text-align: center;
+  background: wheat;
+  border: .3em black solid;
+}
+
+.update-section {
+  margin-right: 4em;
+}
+
 .hidden {
   display: none;
+  border-style: solid;
+  border-color: black;
 }

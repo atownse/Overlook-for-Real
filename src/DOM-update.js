@@ -4,12 +4,20 @@ const domUpdate = {
     percentageElement.innerText = `The hotel is at ${providePercent} capacity today.`
   },
 
-  createAvailableRooms: (element, roomNumber) => {
+  createAvailableRooms: (element, roomData) => {
+    let type = roomData.roomType
+    let bedNumber = roomData.numBeds
+    let bedType = roomData.bedSize
+    let cost = roomData.costPerNight
+    let roomNumber = roomData.number
     element.innerHTML += `
-    <div>
-      <p>Room ${roomNumber}</p>
-      <button data-room-id="${roomNumber}">Book Room</button>
-    </div>
+    <section class="room-container">
+      <div>
+        <img class="room-image" src="../images/hotel-2.jpg">
+        <button data-room-id="${roomNumber}">Book Room ${roomNumber}</button>
+      </div>
+      <p class="room-description">Room ${roomNumber} is a ${type} with ${bedNumber} ${bedType} and costs $${cost}</P
+    </section>
     `
   },
 
@@ -27,6 +35,12 @@ const domUpdate = {
         <p>Room ${roomNumber} is occupied</p>
         <button delete-button-id="${roomNumber}">Remove Booking</button>
       </section>
+    `
+  },
+
+  displayFilteredRoomsByType: (element, roomNumber, event) => {
+    element.innerHTML += `
+      <article class="filtered-rooms">Room ${roomNumber} is a ${event}</article>
     `
   }
 }

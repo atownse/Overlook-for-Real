@@ -5,7 +5,7 @@
   </head>
   <body>
     <section>
-      <h1 class="user-name">Howdy Partner</h1>
+      <h1 class="user-name">Hotel Motel Holiday Inn</h1>
       <form class="login-info">
         <label class="user-inputs">Username:</label>
         <input class="user-inputs username" type="text" placeholder="please enter username">
@@ -24,10 +24,15 @@
       <button class="manager-customer">Enter Customer ID</button>
       <section class="manager-dashboard">
         <section class="manager-view manager-rooms">Available Rooms</section>
-        <button class="update-button">Update Revenue and Percent</button>
-        <section class="manager-view rooms-occupied">Occupied Rooms</section>
-        <section class="manager-view manager-revenue">Total Revenue</section>
-        <section class="manager-view percent-occupied">Percent Occupied</section>
+      <section class="update-section">
+         <section class="day-statistics">
+            <button class="update-button">Update Revenue and Percent</button>
+            <section class="manager-view manager-revenue">Total Revenue</section>
+            <section class="manager-view percent-occupied">Percent Occupied</section>
+          </section>
+          <p class="occupied-text">Occupied Rooms</p>
+          <section class="manager-view rooms-occupied">Occupied Rooms</section>
+        </section>
       </section>
       <!-- <section>
         <input type="text" class="delete-date" placeholder="Remove Booking Date YYYY/MM/DD">
@@ -39,12 +44,16 @@
         <section>
           <input class="booking-calendar" type="date">
           <button class="available-button" id="customer-available-button">Show Available</button>
-          <select class="room-tags">
-            <option value="select">Type of Room</option>
-          </select>
         </section>
-        <section class="customer-available">Available Rooms</section>
+        <section class="customer-available"></section>
       </form>
+      <section class="filter-types">
+        <select class="room-tags">
+          <option value="select">Type of Room</option>
+        </select>
+        <article class="filtered-rooms">
+        </article>
+      </section>
       <section>
         <section class="customer-dashboard">
           <section class="customer-view customer-cost">Total Spent:</section>
