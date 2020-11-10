@@ -34,6 +34,7 @@ const managerRoomsButton = document.querySelector('#manager-available-button');
 const assignCustomerButton = document.querySelector('.manager-customer');
 const calendarDate = document.querySelector('.manager-display .manager-calendar');
 const updateDisplayButton = document.querySelector('.update-button');
+const roomTypeDropdown = document.querySelector('.room-tags');
 
 // Event Listeners
 loginButton.addEventListener('click', userLogin);
@@ -41,6 +42,7 @@ customerRoomsButton.addEventListener('click', showCustomerAvailableRooms);
 managerRoomsButton.addEventListener('click', displayManagerAccount);
 updateDisplayButton.addEventListener('click', updateManagerDisplay);
 assignCustomerButton.addEventListener('click', assignCustomer);
+roomTypeDropdown.addEventListener('click', showFilteredRooms)
 
 //Global variables
 
@@ -197,4 +199,39 @@ function bindDeleteButtons() {
       apiCalls.deleteBookingData(removedBooking);
     })
   })
+}
+
+function findRooms() {
+  let allRooms = rooms.reduce((roomTypes, room) => {
+    if (!roomTypes.includes(room.roomType)){
+      roomTypes.push(room.roomType)
+    }
+    return roomTypes
+  }, [])
+  return allRooms;
+}
+
+function createRoomTypeDropdown() {
+  let roomTypes = findRooms()
+  roomTypeDropdown.innerHTML = '';
+  roomTypes.forEach(type => {
+    return roomTypeDropdown.innerHTML += `
+    <option value="${type}">${type.toUpperCase()}</option>
+    `
+  })
+}
+
+function showFilteredRooms() {
+  let takenRooms = currentCustomer.determineOccupiedRooms(date, bookings)
+  let openRooms = rooms.filter(room => {
+    if(!takenRooms.includes(room)) {
+      return room
+    }
+  })
+  createRoomTypeDropdown();
+  let selectedType = event.target.value;
+  let filteredRooms = currentCustomer.filterRoomsByType(selectedType, openRooms)
+  date = calendarDate.value;
+  let formattedDate = moment(date).format("YYYY/MM/DD");
+  displayAvailableRooms(formattedDate, bookings, filteredRooms, customerRooms, currentCustomer) //section will change depending on how I style things
 }
