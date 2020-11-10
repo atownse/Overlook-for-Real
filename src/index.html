@@ -25,15 +25,23 @@
       <section class="manager-dashboard">
         <section class="manager-view manager-rooms">Available Rooms</section>
         <button class="update-button">Update Revenue and Percent</button>
+        <section class="manager-view rooms-occupied">Occupied Rooms</section>
         <section class="manager-view manager-revenue">Total Revenue</section>
         <section class="manager-view percent-occupied">Percent Occupied</section>
       </section>
+      <!-- <section>
+        <input type="text" class="delete-date" placeholder="Remove Booking Date YYYY/MM/DD">
+        <button class="delete">Delete Booking</button>
+      </section> -->
     </section>
     <section class="customer-display hidden">
       <form class="booking-section">
         <section>
           <input class="booking-calendar" type="date">
           <button class="available-button" id="customer-available-button">Show Available</button>
+          <select class="room-tags">
+            <option value="select">Type of Room</option>
+          </select>
         </section>
         <section class="customer-available">Available Rooms</section>
       </form>

@@ -34,6 +34,7 @@ const managerRoomsButton = document.querySelector('#manager-available-button');
 const assignCustomerButton = document.querySelector('.manager-customer');
 const calendarDate = document.querySelector('.manager-display .manager-calendar');
 const updateDisplayButton = document.querySelector('.update-button');
+const roomTypeDropdown = document.querySelector('.room-tags');
 
 // Event Listeners
 loginButton.addEventListener('click', userLogin);
@@ -41,12 +42,15 @@ customerRoomsButton.addEventListener('click', showCustomerAvailableRooms);
 managerRoomsButton.addEventListener('click', displayManagerAccount);
 updateDisplayButton.addEventListener('click', updateManagerDisplay);
 assignCustomerButton.addEventListener('click', assignCustomer);
+roomTypeDropdown.addEventListener('click', showFilteredRooms)
 
 //Global variables
 
-let currentCustomer, manager, customers, date, bookings, rooms, bookingData;
+let currentCustomer, manager, customers, date, bookings, rooms, bookingData, todayDate;
 manager = new Manager(customers, rooms, 'manager', date, bookings);
-
+let today = new Date()
+todayDate = moment(today).format('YYYY/MM/DD');
+console.log(todayDate)
 // functions
 
 Promise.all([apiCalls.getCustomerData(), apiCalls.getRoomData(), apiCalls.getBookingData()])
@@ -112,10 +116,21 @@ function displayBookedRooms() {
 }
 
 function displayAvailableRooms(date, bookingData, roomData, section, user) {
+  const occupiedRoomsManager = document.querySelector('.rooms-occupied');
   let openRooms = user.showAvailableRooms(date, bookingData, roomData);
   section.innerHTML = '';
   openRooms.forEach(room => {
     domUpdate.createAvailableRooms(section, room.number);
+  })
+  let takenRooms = rooms.filter(room => {
+    if (!openRooms.includes(room) && !managerDisplay.classList.contains('hidden')) {
+      return room
+    } 
+  })
+  occupiedRoomsManager.innerHTML = '';
+  takenRooms.forEach(room => {
+    domUpdate.showBookedRooms(occupiedRoomsManager, room.number)
+    bindDeleteButtons()
   })
 }
 
@@ -166,4 +181,57 @@ function bindBookingButtons() {
       apiCalls.addBookingData(bookingData);
     })
   })
+}
+
+function bindDeleteButtons() {
+  let buttons = document.querySelectorAll('[delete-button-id]');
+  let removedDate = moment(date).format('YYYY/MM/DD')
+  buttons.forEach(button => {
+    button.addEventListener('click', event => {
+      event.preventDefault()
+      let roomToRemove = event.target.getAttribute("delete-button-id");
+      let room = rooms.find(roomToFind => roomToFind.number == roomToRemove);
+      let removedBooking = bookings.find(booking => {
+        if (booking.date == removedDate && room.number === booking.roomNumber) {
+          return booking
+        }
+      })
+      apiCalls.deleteBookingData(removedBooking);
+    })
+  })
+}
+
+function findRooms() {
+  let allRooms = rooms.reduce((roomTypes, room) => {
+    if (!roomTypes.includes(room.roomType)){
+      roomTypes.push(room.roomType)
+    }
+    return roomTypes
+  }, [])
+  return allRooms;
+}
+
+function createRoomTypeDropdown() {
+  let roomTypes = findRooms()
+  roomTypeDropdown.innerHTML = '';
+  roomTypes.forEach(type => {
+    return roomTypeDropdown.innerHTML += `
+    <option value="${type}">${type.toUpperCase()}</option>
+    `
+  })
+}
+
+function showFilteredRooms() {
+  let takenRooms = currentCustomer.determineOccupiedRooms(date, bookings)
+  let openRooms = rooms.filter(room => {
+    if(!takenRooms.includes(room)) {
+      return room
+    }
+  })
+  createRoomTypeDropdown();
+  let selectedType = event.target.value;
+  let filteredRooms = currentCustomer.filterRoomsByType(selectedType, openRooms)
+  date = calendarDate.value;
+  let formattedDate = moment(date).format("YYYY/MM/DD");
+  displayAvailableRooms(formattedDate, bookings, filteredRooms, customerRooms, currentCustomer) //section will change depending on how I style things
 }

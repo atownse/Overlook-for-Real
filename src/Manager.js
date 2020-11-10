@@ -7,16 +7,6 @@ class Manager extends User {
     this.currentCustomer = {};
   }
 
-  // determineOccupiedRooms(date, bookingData) {
-  //   let roomsTaken = bookingData.reduce((filledRooms, bookedRoom) => {
-  //     if (bookedRoom.date === date) {
-  //       filledRooms.push(bookedRoom.roomNumber)
-  //     }
-  //     return filledRooms
-  //   }, []);
-  //   return roomsTaken;
-  // }
-
   // want to match current date to booking date, if dates match, provide list of rooms that are not taken
   provideAvailableRooms(date, bookingData, roomData) {
    let roomsTaken = this.determineOccupiedRooms(date, bookingData);
@@ -57,6 +47,13 @@ class Manager extends User {
     return this.bookings.filter(booking => booking.userID === this.currentCustomer.id);
   }
 
+  compareDate(todayDate, dateInput) {
+    if (todayDate > dateInput) {
+      return false
+    } else {
+      return true
+    }
+  }
 }
 
 export default Manager;

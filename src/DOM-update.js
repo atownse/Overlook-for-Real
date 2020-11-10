@@ -15,10 +15,19 @@ const domUpdate = {
 
   createBookedRooms: (element, roomNumber, date) => {
     element.innerHTML += `
-    <section id="booked-rooms">
-      <p>You booked Room ${roomNumber} on ${date}</p>
-    </section>  
+      <section id="booked-rooms">
+        <p>You booked Room ${roomNumber} on ${date}</p>
+      </section>  
   `
+  },
+
+  showBookedRooms: (element, roomNumber) => {
+    element.innerHTML += `
+      <section id="occupied-rooms">
+        <p>Room ${roomNumber} is occupied</p>
+        <button delete-button-id="${roomNumber}">Remove Booking</button>
+      </section>
+    `
   }
 }
 

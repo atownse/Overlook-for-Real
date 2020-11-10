@@ -16,12 +16,6 @@ class Customer extends User {
     let bookedRooms =  bookingData.filter(booking => {
       return booking.userID === this.id
     });
-    // return bookedRooms.map(room => {
-    //   return room.roomNumber
-    // });
-    // return bookingData.filter(booking => {
-    //   return booking.userID === this.id
-    // });
     return bookedRooms
   }
 
@@ -34,6 +28,10 @@ class Customer extends User {
       });
       return totalSpent;
     }, 0)
+  }
+
+  filterRoomsByType(type, roomData) {
+    return roomData.filter(room => room.roomType.includes(type))
   }
 }
 
