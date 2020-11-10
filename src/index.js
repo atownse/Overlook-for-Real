@@ -198,22 +198,3 @@ function bindDeleteButtons() {
     })
   })
 }
-// function displayOccupiedRooms() {
-//   let occupiedRooms = manager.determineOccupiedRooms(date, bookings);
-//   console.log(occupiedRooms)
-// }
-
-// function deleteCustomerBooking() {
-//   const dateToRemove = document.querySelector('.delete-date');
-//   let canDelete = manager.compareDate(todayDate, dateToRemove.value)
-//   let bookingToRemove = bookings.find(booking => {
-//     if (booking.userID === currentCustomer.id && )
-//   })
-//   if (canDelete === true) {
-//     debugger
-//     manager.deleteBookingData(bookingData)
-//   }
-// }
-
-// const deleteButton = document.querySelector('.delete');
-// deleteButton.addEventListener('click', deleteCustomerBooking)
