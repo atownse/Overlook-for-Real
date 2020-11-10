@@ -44,9 +44,11 @@ assignCustomerButton.addEventListener('click', assignCustomer);
 
 //Global variables
 
-let currentCustomer, manager, customers, date, bookings, rooms, bookingData;
+let currentCustomer, manager, customers, date, bookings, rooms, bookingData, todayDate;
 manager = new Manager(customers, rooms, 'manager', date, bookings);
-
+let today = new Date()
+todayDate = moment(today).format('YYYY/MM/DD');
+console.log(todayDate)
 // functions
 
 Promise.all([apiCalls.getCustomerData(), apiCalls.getRoomData(), apiCalls.getBookingData()])
@@ -112,10 +114,21 @@ function displayBookedRooms() {
 }
 
 function displayAvailableRooms(date, bookingData, roomData, section, user) {
+  const occupiedRoomsManager = document.querySelector('.rooms-occupied');
   let openRooms = user.showAvailableRooms(date, bookingData, roomData);
   section.innerHTML = '';
   openRooms.forEach(room => {
     domUpdate.createAvailableRooms(section, room.number);
+  })
+  let takenRooms = rooms.filter(room => {
+    if (!openRooms.includes(room) && !managerDisplay.classList.contains('hidden')) {
+      return room
+    } 
+  })
+  occupiedRoomsManager.innerHTML = '';
+  takenRooms.forEach(room => {
+    domUpdate.showBookedRooms(occupiedRoomsManager, room.number)
+    bindDeleteButtons()
   })
 }
 
@@ -167,3 +180,40 @@ function bindBookingButtons() {
     })
   })
 }
+
+function bindDeleteButtons() {
+  let buttons = document.querySelectorAll('[delete-button-id]');
+  let removedDate = moment(date).format('YYYY/MM/DD')
+  buttons.forEach(button => {
+    button.addEventListener('click', event => {
+      event.preventDefault()
+      let roomToRemove = event.target.getAttribute("delete-button-id");
+      let room = rooms.find(roomToFind => roomToFind.number == roomToRemove);
+      let removedBooking = bookings.find(booking => {
+        if (booking.date == removedDate && room.number === booking.roomNumber) {
+          return booking
+        }
+      })
+      apiCalls.deleteBookingData(removedBooking);
+    })
+  })
+}
+// function displayOccupiedRooms() {
+//   let occupiedRooms = manager.determineOccupiedRooms(date, bookings);
+//   console.log(occupiedRooms)
+// }
+
+// function deleteCustomerBooking() {
+//   const dateToRemove = document.querySelector('.delete-date');
+//   let canDelete = manager.compareDate(todayDate, dateToRemove.value)
+//   let bookingToRemove = bookings.find(booking => {
+//     if (booking.userID === currentCustomer.id && )
+//   })
+//   if (canDelete === true) {
+//     debugger
+//     manager.deleteBookingData(bookingData)
+//   }
+// }
+
+// const deleteButton = document.querySelector('.delete');
+// deleteButton.addEventListener('click', deleteCustomerBooking)

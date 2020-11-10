@@ -7,16 +7,6 @@ class Manager extends User {
     this.currentCustomer = {};
   }
 
-  // determineOccupiedRooms(date, bookingData) {
-  //   let roomsTaken = bookingData.reduce((filledRooms, bookedRoom) => {
-  //     if (bookedRoom.date === date) {
-  //       filledRooms.push(bookedRoom.roomNumber)
-  //     }
-  //     return filledRooms
-  //   }, []);
-  //   return roomsTaken;
-  // }
-
   // want to match current date to booking date, if dates match, provide list of rooms that are not taken
   provideAvailableRooms(date, bookingData, roomData) {
    let roomsTaken = this.determineOccupiedRooms(date, bookingData);
@@ -56,6 +46,29 @@ class Manager extends User {
     this.setCurrentCustomer(customer);
     return this.bookings.filter(booking => booking.userID === this.currentCustomer.id);
   }
+
+  compareDate(todayDate, dateInput) {
+    if (todayDate > dateInput) {
+      return false
+    } else {
+      return true
+    }
+  }
+
+  // deleteBookingData(bookingData) {
+  //   const deleteData = (path, data) => {
+  //     return fetch(path, {
+  //       method: 'DELETE',
+  //       headers: {
+  //         'Content-Type': 'application/json'
+  //       },
+  //       body: JSON.stringify(data)
+  //     })
+  //       .then(response => response.json())
+  //       .catch(err => console.log(err))
+  //   }
+  //   deleteData('https://fe-apps.herokuapp.com/api/v1/overlook/1904/bookings/bookings', bookingData)
+  // }
 
 }
 
