@@ -1,19 +1,58 @@
 /* This is an example of using Sass, otherwise plain CSS works too*/
 // $primary-background: radial-gradient(circle, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%);
 ;
+@import 'mixin';
 
-// body {
-//   background: $primary-background;
-// }
+body {
+  background: url("../images/hotel-motel.jpg") no-repeat center / 100% 100% fixed;
+}
+
+div {
+  @include display-format(flex, center, column, wrap);
+  margin: 1em 0 1em 1em;
+  border-style: solid;
+  border-color: black;
+}
+
+label {
+  font-weight: 900;
+  text-decoration: underline;
+}
+
+select, button {
+  cursor: pointer;
+}
+
+.room-description {
+  @include format-style(wheat, .3em black solid, none);
+  width: 7em;
+  align-content: center;
+  text-align: center;
+}
+
+.room-image {
+  width: 14.1em;
+  height: 10em;
+}
+
+.user-name {
+  @include format-style(wheat, .15em black solid, 5px 5px 5px black);
+  width: 10.5em;
+  border-radius: .2em;
+  text-align: center;
+}
 
 .login-info {
-  background-color: #2ae698;
   height: 12em;
-  width: 15em;
-  display: flex;
-  flex-direction: column;
-  justify-content: right;
-  margin: 12em 0
+  width: 12em;
+  @include display-format(flex, right, column, none);
+  margin: 12em 0;
+  @include format-style(#2ae698, .3em black solid, 5px 5px 5px black);
+}
+
+.log-out-form {
+  @include display-format(flex, center, row, none);
+  margin: 7em;
 }
 
 .user-inputs {
@@ -22,61 +61,142 @@
 }
 
 .manager-dashboard {
-  display: flex;
-  justify-content: space-around;
+  @include display-format(flex, space-between, row, none);
+  // display: flex;
+  // justify-content: space-between;
 }
 
 .manager-view {
-  background-color: #2ae698;
-    height: 10em;
-    width: 10em;
-    text-align: center;
+  height: 10em;
+  width: 10em;
+  text-align: center;
+  margin: 1em;
+  @include format-style(wheat, .3em black solid, 5px 5px 5px black);
+  // background-color: wheat;
+  // border: .3em black solid;
+  // box-shadow: 5px 5px 5px black;
 }
 
 .customer-dashboard {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
+  @include display-format(flex, space-around, column, none);
   align-items: flex-end;
 }
 
 .customer-view {
-  background-color: #2ae698;
-  height: 4em; // 100% for .customer-rooms
+  height: 3em; 
   width: 20em;
   text-align: center;
   margin: 1em;
-  border-color: black;
-  border-style: solid;
+  border: .3em black solid;
+}
+
+.customer-cost {
+  background-color: wheat;
+  box-shadow: 5px 5px 5px black;
+}
+
+.customer-rooms {
+  background-color: #2ae698;
+  height: 100%;
+  box-shadow: 5px 5px 5px black;
 }
 
 .booking-section {
-  display: flex;
-  justify-content: left;
-  padding: 1em
+  @include display-format(flex, left, row, none);
+  padding: 1em;
+  background-color: wheat;
+  border: .3em black solid;
+  box-shadow: 5px 5px 5px black;
 }
 
 #booked-rooms {
+  @include display-format(flex, space-around, row, none);
+  @include format-style(wheat, .3em black solid, 5px 5px 5px black);
   margin: 1em;
-  display: flex;
-  justify-content: space-around;
-  background-color: yellow;
-  border-color: black;
-  border-style: solid;  
+}
+
+.customer-info {
+  @include display-format(flex, space-between, row, none);
 }
 
 .customer-display {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+  @include display-format(flex, space-evenly, column, none);
 }
 
 .booking-section {
+  @include display-format(flex, end, column, none);
+}
+
+.filter-types {
+  @include display-format(flex, center, column, none);
+  height: fit-content;
+  margin: 1em;
+}
+
+.filter-rooms {
+  @include format-style(#2ae698, .3em black solid, 5px 5px 5px black);
+  margin: 1em;
+}
+
+.filtered-rooms {
+  width: 10em;
+  height: 100%;
+  margin: 1em;
+  @include format-style(wheat, .3em black solid, 5px 5px 5px black);
+}
+
+.show-available {
+  @include display-format(flex, center, row, none);
+}
+
+.room-container {
   display: flex;
-  justify-content: end;
-  flex-direction: column;
+  box-shadow: 5px 5px 5px black;
+}
+
+.day-statistics {
+  @include display-format(flex, center, column, none);
+  align-items: center;
+  height: 12em;
+  @include format-style(#2ae698, .3em black solid, 5px 5px 5px black);
+}
+
+.rooms-occupied {
+  height: 86%;
+  width: 95.5%;
+  margin: 0;
+  @include format-style(#2ae698, .3em black solid, 5px 5px 5px black);
+}
+
+.manager-rooms {
+  height: 100%;
+  width: 23.8em;
+  border: .3em black solid;
+}
+
+.occupied-text {
+  text-align: center;
+  @include format-style(wheat, .3em black solid, 5px 5px 5px black);
+}
+
+#occupied-rooms {
+  padding: 0 0 1em;
+  margin: 1em;
+  @include format-style(wheat, .3em black solid, 5px 5px 5px black);
+}
+
+.update-section {
+  margin-right: 4em;
 }
 
 .hidden {
+  display: none;
+}
+
+#blockColorblindContent {
+  display: none;
+}
+
+#lo-engage-ext-container {
   display: none;
 }

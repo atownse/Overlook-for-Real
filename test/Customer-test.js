@@ -36,7 +36,7 @@ describe('Customer', () => {
 
   it('should provide the booked rooms for that customer', () => {
     let customerBookings = customer.provideBookedRooms(bookings);
-    expect(customerBookings).to.deep.equal([1, 5, 3]);
+    expect(customerBookings).to.deep.equal([bookings[0], bookings[3], bookings[4]]);
   });
 
   it('should be able to provide the total amount that user has spent at this hotel', () => {

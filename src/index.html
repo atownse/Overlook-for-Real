@@ -5,54 +5,72 @@
   </head>
   <body>
     <section>
-      <h1 class="user-name">Howdy Partner</h1>
-      <form class="login-info">
-        <label class="user-inputs">Username:</label>
-        <input class="user-inputs username" type="text" placeholder="please enter username">
-        <label class="user-inputs">Password:</label>
-        <input class="user-inputs password" type="text" placeholder="please enter password">
-        <button class="user-inputs login-button">Log In</button>
+      <h1 class="user-name">Hotel Motel Holiday Inn</h1>
+      <form for="login-section" class="login-info">
+        <label for="username-input" id="login-section" class="user-inputs">Username:</label>
+        <input class="user-inputs username" id="username-input" type="text" placeholder="please enter username">
+        <label for="password-input" id="login-section" class="user-inputs">Password:</label>
+        <input class="user-inputs password" id="password-input" type="text" placeholder="please enter password">
+        <button aria-label="login-button" class="user-inputs login-button">Log In</button>
       </form>
-      <img>
     </section>
     <section class="manager-display hidden">
-      <section>
-        <input class="manager-calendar" type="date">
-        <button id="manager-available-button">Show Available</button>
+      <section class="manager-info">
+        <form>
+          <label for="manager-calendar-section" id="manager-available"></label>
+          <input aria-label="manager-available" class="manager-calendar" id="manager-calendar-section" type="date" name="manager-calendar-section">
+          <button id="manager-available-button">Show Available</button>
+        </form>
+        <form>
+          <label for="enter-customer-name" id="customer-name"></label>
+          <input aria-label="customer-name" class="customer-input" id="enter-customer-name" type="text" placeholder="Enter Customer Name" name="enter-customer-name">
+          <button class="manager-customer">Enter Customer Name</button>
+        </form>
+        <section class="manager-dashboard">
+          <section class="manager-view manager-rooms">Available Rooms</section>
+        <section class="update-section">
+           <section class="day-statistics">
+              <button aria-label= "update-manager-display-button" class="update-button">Update Revenue and Percent</button>
+              <section class="manager-view manager-revenue">Total Revenue</section>
+              <section class="manager-view percent-occupied">Percent Occupied</section>
+            </section>
+            <p class="occupied-text">Occupied Rooms</p>
+            <section class="manager-view rooms-occupied">Occupied Rooms</section>
+          </section>
+        </section>
       </section>
-      <input class="customer-input" type="text" placeholder="enter customer ID">
-      <button class="manager-customer">Enter Customer ID</button>
-      <section class="manager-dashboard">
-        <section class="manager-view manager-rooms">Available Rooms</section>
-        <button class="update-button">Update Revenue and Percent</button>
-        <section class="manager-view rooms-occupied">Occupied Rooms</section>
-        <section class="manager-view manager-revenue">Total Revenue</section>
-        <section class="manager-view percent-occupied">Percent Occupied</section>
-      </section>
-      <!-- <section>
-        <input type="text" class="delete-date" placeholder="Remove Booking Date YYYY/MM/DD">
-        <button class="delete">Delete Booking</button>
-      </section> -->
+      <form class="log-out-form log-out-manager">
+        <label for="log-out"></label>
+      </form>
     </section>
     <section class="customer-display hidden">
-      <form class="booking-section">
-        <section>
-          <input class="booking-calendar" type="date">
-          <button class="available-button" id="customer-available-button">Show Available</button>
-          <select class="room-tags">
+      <section class="customer-info">
+        <form class="booking-section">
+          <section class="show-available" id="booking-section">
+            <label for="booking-calendar" id="customer-available-rooms"></label>
+            <input aria-label="customer-available-rooms" class="booking-calendar" id="booking-calendar" type="date" name="booking-calendar">
+            <button class="available-button" id="customer-available-button">Show Available</button>
+          </section>
+          <section class="customer-available"></section>
+        </form>
+        <section class="filter-types">
+          <label for="room-types"></label>
+          <select class="room-tags" id="room-types">
             <option value="select">Type of Room</option>
           </select>
+          <section class="filter-rooms">
+          </section>
         </section>
-        <section class="customer-available">Available Rooms</section>
-      </form>
-      <section>
-        <section class="customer-dashboard">
-          <section class="customer-view customer-cost">Total Spent:</section>
-          <section class="customer-view customer-rooms">Rooms Booked:</section>
-        </section> 
+        <section>
+          <section class="customer-dashboard">
+            <section class="customer-view customer-cost">Total Spent:</section>
+            <section class="customer-view customer-rooms">Rooms Booked:</section>
+          </section> 
+        </section>
       </section>
+      <form for="log-out" class="log-out-form log-out-customer">
+      </form>
     </section>
-    <!-- <img src="./images/turing-logo.png" alt="turing logo" height="100px" width="100px"> -->
 
     <!-- Do not include the index.js or main.bundle.js file here - it is done automatically by the webpack server -->
   </body>

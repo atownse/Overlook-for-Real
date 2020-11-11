@@ -10,6 +10,7 @@ class User {
     this.date = date;
     this.customers = customers;
     this.bookings = bookings || [];
+    this.sorryMessage = `Yo, blame covid for the room shortage`
   }
 
   createDate(date) {
@@ -37,10 +38,6 @@ class User {
     }, [])
     return openRooms;
   }
-  
-  // bookRoom(booking) {
-  //   this.bookings.push(booking);
-  // }
 }
 
 export default User;
