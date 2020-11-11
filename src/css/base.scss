@@ -9,7 +9,6 @@ body {
 
 div {
   @include display-format(flex, center, column, wrap);
-  // background-color: wheat;
   margin: 1em 0 1em 1em;
   border-style: solid;
   border-color: black;
@@ -18,6 +17,10 @@ div {
 label {
   font-weight: 900;
   text-decoration: underline;
+}
+
+select, button {
+  cursor: pointer;
 }
 
 .room-description {
@@ -37,9 +40,6 @@ label {
   width: 10.5em;
   border-radius: .2em;
   text-align: center;
-  // background-color: wheat;
-  // border: .15em black solid;
-  // box-shadow: 5px 5px 5px black;
 }
 
 .login-info {
@@ -48,10 +48,6 @@ label {
   @include display-format(flex, right, column, none);
   margin: 12em 0;
   @include format-style(#2ae698, .3em black solid, 5px 5px 5px black);
-  // background-color: #2ae698;
-  // border-style: solid;
-  // border-color: black;
-  // box-shadow: 5px 5px 5px black;
 }
 
 .log-out-form {

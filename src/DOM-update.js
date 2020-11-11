@@ -13,7 +13,7 @@ const domUpdate = {
     element.innerHTML += `
     <section class="room-container">
       <div>
-        <img class="room-image" src="../images/hotel-2.jpg" alt="Room Image">
+        <img class="room-image" src="../images/hotel-motel.jpg" alt="Room Image">
         <button aria-label="room-${roomNumber}-booking-button" data-room-id="${roomNumber}">Book Room ${roomNumber}</button>
       </div>
       <p class="room-description">Room ${roomNumber} is a ${type} with ${bedNumber} ${bedType} and costs $${cost} per night</P
@@ -48,6 +48,12 @@ const domUpdate = {
     element.innerHTML = '';
     element.innerHTML = `
     <button aria-label="log-out-button" id="log-out" class="log-out">Log Out</button>
+    `
+  },
+
+  updateRoomTypeDropdown: (element, type) => {
+    element.innerHTML += `
+    <option value="${type}">${type.toUpperCase()}</option>
     `
   }
 }

@@ -18,17 +18,10 @@ import domUpdate from './DOM-update'
 
 // Query Selectors--------------------
 
-const userNameDisplay = document.querySelector('.user-name');
-const usernameInput = document.querySelector('.username');
-const passwordInput = document.querySelector('.password');
 const loginButton = document.querySelector('.login-button');
 const managerDisplay = document.querySelector('.manager-display');
 const customerDisplay = document.querySelector('.customer-display');
 const managerRooms = document.querySelector('.manager-rooms');
-const managerRevenue = document.querySelector('.manager-revenue');
-const occupiedPercentage = document.querySelector('.percent-occupied');
-const customerRooms = document.querySelector('.customer-rooms');
-const customerCost = document.querySelector('.customer-cost');
 const customerRoomsButton = document.querySelector('#customer-available-button');
 const managerRoomsButton = document.querySelector('#manager-available-button');
 const assignCustomerButton = document.querySelector('.manager-customer');
@@ -44,13 +37,11 @@ updateDisplayButton.addEventListener('click', updateManagerDisplay);
 assignCustomerButton.addEventListener('click', assignCustomer);
 roomTypeDropdown.addEventListener('click', showFilteredRooms)
 
-//Global variables
-
 let currentCustomer, manager, customers, date, bookings, rooms, bookingData, todayDate;
 manager = new Manager(customers, rooms, 'manager', date, bookings);
 let today = new Date()
 todayDate = moment(today).format('YYYY/MM/DD');
-console.log(todayDate)
+
 // functions
 
 Promise.all([apiCalls.getCustomerData(), apiCalls.getRoomData(), apiCalls.getBookingData()])
@@ -59,7 +50,6 @@ Promise.all([apiCalls.getCustomerData(), apiCalls.getRoomData(), apiCalls.getBoo
     return dataList = {...dataList, ...dataItem};
   }, {})
   instantiateData(condensedData)
-  // login('customer29', 'overlook2020'); // for development
 });
 
 function instantiateData(data) {
@@ -79,6 +69,8 @@ function removeLogin() {
 }
 
 function updateManagerDisplay() {
+  const managerRevenue = document.querySelector('.manager-revenue');
+  const occupiedPercentage = document.querySelector('.percent-occupied');
   date = calendarDate.value;
   let formattedDate = moment(date).format("YYYY/MM/DD");
   let total = manager.provideTotalRevenue(formattedDate, bookings, rooms);
@@ -107,6 +99,7 @@ function displayManagerAccount() {
 }
 
 function displayBookedRooms() {
+  const customerRooms = document.querySelector('.customer-rooms');
   let customersRooms = currentCustomer.provideBookedRooms(bookings);
   customersRooms.forEach(room => {
     let bookedDate = room.date
@@ -141,10 +134,17 @@ function showCustomerAvailableRooms() {
   let formattedDate = moment(date).format("YYYY/MM/DD");
   const customerAvailableRooms = document.querySelector('.customer-available');
   displayAvailableRooms(formattedDate, bookings, rooms, customerAvailableRooms, currentCustomer);
-  bindBookingButtons()
+  bindBookingButtons();
+  let takenRooms = currentCustomer.determineOccupiedRooms(formattedDate, bookings)
+  console.log(takenRooms)
+  if (takenRooms.length >= 25) {
+    customerAvailableRooms.innerText = currentCustomer.sorryMessage
+  }
 }
 
 function displayCustomerAccount(userName) {
+  const userNameDisplay = document.querySelector('.user-name');
+  const customerCost = document.querySelector('.customer-cost');
   removeLogin();
   currentCustomer = customers.find(customer => `customer${customer.id}` === userName);
   let userCosts = currentCustomer.provideTotalCosts(currentCustomer.id, bookings, rooms);
@@ -155,6 +155,8 @@ function displayCustomerAccount(userName) {
 }
 
 function userLogin(event) {
+  const usernameInput = document.querySelector('.username');
+  const passwordInput = document.querySelector('.password');
   event.preventDefault();
   let userName = usernameInput.value;
   let password = passwordInput.value;
@@ -185,7 +187,6 @@ function bindBookingButtons() {
       let roomToBook = event.target.getAttribute("data-room-id");
       let room = rooms.find(roomToFind => roomToFind.number == roomToBook);
       bookingData = {'userID': currentCustomer.id, 'date': moment(date).format("YYYY/MM/DD"), 'roomNumber': room.number}
-      console.log(bookingData)
       apiCalls.addBookingData(bookingData);
     })
   })
@@ -223,9 +224,7 @@ function createRoomTypeDropdown() {
   let roomTypes = findRooms()
   roomTypeDropdown.innerHTML = '';
   roomTypes.forEach(type => {
-    return roomTypeDropdown.innerHTML += `
-    <option value="${type}">${type.toUpperCase()}</option>
-    `
+    domUpdate.updateRoomTypeDropdown(roomTypeDropdown, type);
   })
 }
 
